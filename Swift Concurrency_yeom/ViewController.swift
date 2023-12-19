@@ -16,9 +16,22 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         
-        Network.shared.fetchThumbnail { image in
-            self.posterImageView.image = image
+//        Network.shared.fetchThumbnail { image in
+//            self.posterImageView.image = image
+//        }
+        
+        Network.shared.fetchThumbnailURLSession { response in
+            switch response {
+            case .success(let data):
+                self.posterImageView.image = data
+            case .failure(let failure):
+                self.posterImageView.backgroundColor = .lightGray
+                print(failure)
+            }
         }
+        
+        
+        
         
     }
 
