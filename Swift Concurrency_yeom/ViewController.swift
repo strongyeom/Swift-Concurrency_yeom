@@ -9,9 +9,17 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet var posterImageView: UIImageView!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        
+        Network.shared.fetchThumbnail { image in
+            self.posterImageView.image = image
+        }
+        
     }
 
 
