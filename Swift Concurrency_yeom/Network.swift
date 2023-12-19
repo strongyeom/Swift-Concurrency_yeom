@@ -100,9 +100,11 @@ class Network {
     // 3. Swift Concurrency
     // function을 비동기로 작업할거야 : async
     // return UIImage를 얻겠어
-    func fetchThumbnailAsyncAwait() async throws -> UIImage {
+    func fetchThumbnailAsyncAwait(value: String) async throws -> UIImage {
         
-        let url = URL(string: "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/A5MIbqxuQfQRtzGxg5UUTAxHfsM.jpg")!
+        let url = URL(string: "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/\(value).jpg")!
+        
+
         
         let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 5)
         
@@ -118,6 +120,19 @@ class Network {
             throw NetworkError.invalidImage
         }
         
+        print("url - \(url.description)")
+        
         return image
+    }
+    
+    // return image들을 한번에 받기 위해 배열형식
+    func fetchThumbnailAsynclet() async throws -> [UIImage] {
+        
+        async let image = try await Network.shared.fetchThumbnailAsyncAwait(value: "A5MIbqxuQfQRtzGxg5UUTAxHfsM") // 비동기 함수가 다 실행될때까지 기다려
+        async let image2 = try await Network.shared.fetchThumbnailAsyncAwait(value: "eDps1ZhI8IOlbEC7nFg6eTk4jnb")
+        async let image3 = try await Network.shared.fetchThumbnailAsyncAwait(value: "mYLOqiStMxDK3fYZFirgrMt8z5d")
+        
+        // 비동기로 나오는 image, image2, image3를 비동기로 배열에 담아야 하기 때문에 try await 사용
+        return try await [image, image2, image3]
     }
 }
