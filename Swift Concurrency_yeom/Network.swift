@@ -95,4 +95,29 @@ class Network {
         
     }
     
+    
+    
+    // 3. Swift Concurrency
+    // function을 비동기로 작업할거야 : async
+    // return UIImage를 얻겠어
+    func fetchThumbnailAsyncAwait() async throws -> UIImage {
+        
+        let url = URL(string: "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/A5MIbqxuQfQRtzGxg5UUTAxHfsM.jpg")!
+        
+        let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 5)
+        
+        // await: 비동기를 동기처럼 작업할거니까, 응답 올때까지 기다려
+        // 코드의 순서대로 진행 할 수있게 await가 만들어줌  <<- 코드 실행하다가 비동기 있으면 패스하고 마지막 실행되고 다시 비동기 구문 실행되고...
+        let (data, response) = try await URLSession.shared.data(for: request)
+        
+        guard let response = response as? HTTPURLResponse,
+              response.statusCode == 200 else {
+                  throw NetworkError.invalidResponse
+              }
+        guard let image = UIImage(data: data) else {
+            throw NetworkError.invalidImage
+        }
+        
+        return image
+    }
 }
