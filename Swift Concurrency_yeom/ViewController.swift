@@ -15,6 +15,17 @@ class ViewController: UIViewController {
     
     @IBOutlet var thirdImageView: UIImageView!
     
+    /*
+     
+     범죄도시
+     A5MIbqxuQfQRtzGxg5UUTAxHfsM
+     
+     아쿠아맨
+     eDps1ZhI8IOlbEC7nFg6eTk4jnb
+     
+     반지의 제왕
+     mYLOqiStMxDK3fYZFirgrMt8z5d
+     */
    
     
     
@@ -47,25 +58,21 @@ class ViewController: UIViewController {
 //
 //        }
         
+//        Task {
+//            let result = try await Network.shared.fetchThumbnailAsynclet()
+//
+//            posterImageView.image = result[0]
+//            secondImageView.image = result[1]
+//            thirdImageView.image = result[2]
+//        }
+        
+        
         Task {
-            let result = try await Network.shared.fetchThumbnailAsynclet()
-            
+            let result = try await Network.shared.fetchThumbnailTaskGroup()
             posterImageView.image = result[0]
             secondImageView.image = result[1]
             thirdImageView.image = result[2]
         }
-        
-        /*
-         
-         범죄도시
-         A5MIbqxuQfQRtzGxg5UUTAxHfsM
-         
-         아쿠아맨
-         eDps1ZhI8IOlbEC7nFg6eTk4jnb
-         
-         반지의 제왕
-         mYLOqiStMxDK3fYZFirgrMt8z5d
-         */
         
         
         

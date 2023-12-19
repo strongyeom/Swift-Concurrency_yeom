@@ -135,4 +135,37 @@ class Network {
         // 비동기로 나오는 image, image2, image3를 비동기로 배열에 담아야 하기 때문에 try await 사용
         return try await [image, image2, image3]
     }
+    
+    // taskGroup
+    func fetchThumbnailTaskGroup() async throws -> [UIImage] {
+        let poster = [
+            "A5MIbqxuQfQRtzGxg5UUTAxHfsM",
+            "eDps1ZhI8IOlbEC7nFg6eTk4jnb",
+            "mYLOqiStMxDK3fYZFirgrMt8z5d"
+        ]
+        
+        // Sendable.protocol : 네트워크 통신으로 나오는 return 값의 타입을 적어준다.
+        return try await withThrowingTaskGroup(of: UIImage.self, body: { group in
+            
+            for item in poster {
+                
+                group.addTask { // <- 네트워크 통신 해야 되는 갯수를 group에 추가해준다.
+                    try await self.fetchThumbnailAsyncAwait(value: item)
+                }
+            }
+            
+            var resultImages: [UIImage] = []
+            
+            for try await item in group {
+                resultImages.append(item)
+            }
+            
+            return resultImages
+            
+            
+        })
+        
+        
+        
+    }
 }
