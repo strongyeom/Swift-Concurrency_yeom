@@ -16,7 +16,6 @@ enum NetworkError: Error {
 
 
 // 무한정 늘어나는 쓰레드가 발생할 수 있기 때문에 그러한 문제를 해결 하기 위해 Concurrency 등장
-
 class Network {
     static let shared = Network()
     
@@ -100,18 +99,17 @@ class Network {
     // 3. Swift Concurrency
     // function을 비동기로 작업할거야 : async
     // return UIImage를 얻겠어
+    
     func fetchThumbnailAsyncAwait(value: String) async throws -> UIImage {
-        
+        print(#function, "1", Thread.isMainThread)
         let url = URL(string: "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/\(value).jpg")!
-        
-
         
         let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 5)
         
         // await: 비동기를 동기처럼 작업할거니까, 응답 올때까지 기다려
         // 코드의 순서대로 진행 할 수있게 await가 만들어줌  <<- 코드 실행하다가 비동기 있으면 패스하고 마지막 실행되고 다시 비동기 구문 실행되고...
         let (data, response) = try await URLSession.shared.data(for: request)
-        
+        print(#function, "2", Thread.isMainThread)
         guard let response = response as? HTTPURLResponse,
               response.statusCode == 200 else {
                   throw NetworkError.invalidResponse
@@ -120,18 +118,19 @@ class Network {
             throw NetworkError.invalidImage
         }
         
-        print("url - \(url.description)")
+//        print("url - \(url.description)")
         
         return image
     }
     
     // return image들을 한번에 받기 위해 배열형식
+    
     func fetchThumbnailAsynclet() async throws -> [UIImage] {
-        
-        async let image = try await Network.shared.fetchThumbnailAsyncAwait(value: "A5MIbqxuQfQRtzGxg5UUTAxHfsM") // 비동기 함수가 다 실행될때까지 기다려
-        async let image2 = try await Network.shared.fetchThumbnailAsyncAwait(value: "eDps1ZhI8IOlbEC7nFg6eTk4jnb")
-        async let image3 = try await Network.shared.fetchThumbnailAsyncAwait(value: "mYLOqiStMxDK3fYZFirgrMt8z5d")
-        
+        print(#function, "1", Thread.isMainThread)
+        async let image = Network.shared.fetchThumbnailAsyncAwait(value: "A5MIbqxuQfQRtzGxg5UUTAxHfsM") // 비동기 함수가 다 실행될때까지 기다려
+        async let image2 = Network.shared.fetchThumbnailAsyncAwait(value: "eDps1ZhI8IOlbEC7nFg6eTk4jnb")
+        async let image3 = Network.shared.fetchThumbnailAsyncAwait(value: "mYLOqiStMxDK3fYZFirgrMt8z5d")
+        print(#function, "2", Thread.isMainThread)
         // 비동기로 나오는 image, image2, image3를 비동기로 배열에 담아야 하기 때문에 try await 사용
         return try await [image, image2, image3]
     }

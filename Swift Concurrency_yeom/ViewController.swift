@@ -7,6 +7,10 @@
 
 import UIKit
 
+/*
+ @MainActor: Swift Concurrency를 작성한 코드에서 다시 메인쓰레드로 돌려주는 역할을 수행
+ */
+
 class ViewController: UIViewController {
 
     @IBOutlet var posterImageView: UIImageView!
@@ -14,21 +18,7 @@ class ViewController: UIViewController {
     @IBOutlet var secondImageView: UIImageView!
     
     @IBOutlet var thirdImageView: UIImageView!
-    
-    /*
-     
-     범죄도시
-     A5MIbqxuQfQRtzGxg5UUTAxHfsM
-     
-     아쿠아맨
-     eDps1ZhI8IOlbEC7nFg6eTk4jnb
-     
-     반지의 제왕
-     mYLOqiStMxDK3fYZFirgrMt8z5d
-     */
-   
-    
-    
+ 
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -58,22 +48,26 @@ class ViewController: UIViewController {
 //
 //        }
         
-//        Task {
-//            let result = try await Network.shared.fetchThumbnailAsynclet()
+        Task {
+            // 현재 쓰레드 체크 할 수 있는 print문
+            print(#function, "1", Thread.isMainThread)
+            let result = try await Network.shared.fetchThumbnailAsynclet()
+            print(#function, "2", Thread.isMainThread)
+            posterImageView.image = result[0]
+            secondImageView.image = result[1]
+            thirdImageView.image = result[2]
+            print(#function, "3", Thread.isMainThread)
+            
+        }
+        
 //
+//        Task {
+//            let result = try await Network.shared.fetchThumbnailTaskGroup()
 //            posterImageView.image = result[0]
 //            secondImageView.image = result[1]
 //            thirdImageView.image = result[2]
 //        }
-        
-        
-        Task {
-            let result = try await Network.shared.fetchThumbnailTaskGroup()
-            posterImageView.image = result[0]
-            secondImageView.image = result[1]
-            thirdImageView.image = result[2]
-        }
-        
+//
         
         
     }
