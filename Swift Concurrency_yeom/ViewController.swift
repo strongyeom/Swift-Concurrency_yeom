@@ -59,7 +59,11 @@ class ViewController: UIViewController {
  
     
     @IBAction func testBtnTapped(_ sender: UIButton) {
-        present(DetailViewController(), animated: true)
+        
+        let vc = HostingTestView(rootView: TestView()) // SwiftUI를 감싼 VC를 만듬
+        
+        present(vc, animated: true)
+//        present(DetailViewController(), animated: true)
     }
     
     override func viewDidLoad() {

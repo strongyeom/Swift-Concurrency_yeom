@@ -17,6 +17,8 @@
 		26C3A5DE2B312596009C23C8 /* Swift_Concurrency_yeomUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C3A5DD2B312596009C23C8 /* Swift_Concurrency_yeomUITests.swift */; };
 		26C3A5E02B312596009C23C8 /* Swift_Concurrency_yeomUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C3A5DF2B312596009C23C8 /* Swift_Concurrency_yeomUITestsLaunchTests.swift */; };
 		26C3A5ED2B3125A8009C23C8 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C3A5EC2B3125A8009C23C8 /* Network.swift */; };
+		26F43EFA2B328F9D003CEEC1 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F43EF92B328F9D003CEEC1 /* TestView.swift */; };
+		26F43EFC2B328FCE003CEEC1 /* HostingTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F43EFB2B328FCE003CEEC1 /* HostingTestView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +53,8 @@
 		26C3A5DD2B312596009C23C8 /* Swift_Concurrency_yeomUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Swift_Concurrency_yeomUITests.swift; sourceTree = "<group>"; };
 		26C3A5DF2B312596009C23C8 /* Swift_Concurrency_yeomUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Swift_Concurrency_yeomUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		26C3A5EC2B3125A8009C23C8 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+		26F43EF92B328F9D003CEEC1 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
+		26F43EFB2B328FCE003CEEC1 /* HostingTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostingTestView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,11 +108,13 @@
 				26C3A5BC2B312593009C23C8 /* AppDelegate.swift */,
 				26C3A5BE2B312593009C23C8 /* SceneDelegate.swift */,
 				26C3A5C02B312593009C23C8 /* ViewController.swift */,
+				26F43EFB2B328FCE003CEEC1 /* HostingTestView.swift */,
 				26C3A5C22B312593009C23C8 /* Main.storyboard */,
 				26C3A5C52B312595009C23C8 /* Assets.xcassets */,
 				26C3A5C72B312595009C23C8 /* LaunchScreen.storyboard */,
 				26C3A5CA2B312595009C23C8 /* Info.plist */,
 				26C3A5EC2B3125A8009C23C8 /* Network.swift */,
+				26F43EF92B328F9D003CEEC1 /* TestView.swift */,
 			);
 			path = "Swift Concurrency_yeom";
 			sourceTree = "<group>";
@@ -262,7 +268,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				26C3A5C12B312593009C23C8 /* ViewController.swift in Sources */,
+				26F43EFA2B328F9D003CEEC1 /* TestView.swift in Sources */,
 				26C3A5BD2B312593009C23C8 /* AppDelegate.swift in Sources */,
+				26F43EFC2B328FCE003CEEC1 /* HostingTestView.swift in Sources */,
 				26C3A5ED2B3125A8009C23C8 /* Network.swift in Sources */,
 				26C3A5BF2B312593009C23C8 /* SceneDelegate.swift in Sources */,
 			);
