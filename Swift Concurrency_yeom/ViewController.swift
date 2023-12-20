@@ -11,6 +11,44 @@ import UIKit
  @MainActor: Swift Concurrency를 작성한 코드에서 다시 메인쓰레드로 돌려주는 역할을 수행
  */
 
+class MyClassA {
+    var target: MyClassB?
+    
+    deinit {
+        print("MyClassA Deinit")
+    }
+}
+
+class MyClassB {
+    var target: MyClassA?
+    
+    deinit {
+        print("MyClassB Deinit")
+    }
+}
+
+class DetailViewController: UIViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        print(#function)
+        view.backgroundColor = .blue
+        
+        
+        let a = MyClassA()
+        let b = MyClassB()
+        // 수치로 확인하고 싶으면 instruments로 확인 가능
+        a.target = b
+        b.target = a
+        
+        
+    }
+    
+    deinit {
+        print("DEINIT")
+    }
+    
+}
+
 class ViewController: UIViewController {
 
     @IBOutlet var posterImageView: UIImageView!
@@ -19,9 +57,15 @@ class ViewController: UIViewController {
     
     @IBOutlet var thirdImageView: UIImageView!
  
+    
+    @IBAction func testBtnTapped(_ sender: UIButton) {
+        present(DetailViewController(), animated: true)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+      
         
 //        Network.shared.fetchThumbnail { image in
 //            self.posterImageView.image = image
